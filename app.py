@@ -48,13 +48,13 @@ def make_public_task(task):
 	return new_task
 
 # GET list of tasks 
-@app.route('/todo/api/v1.0/tasks', methods=['GET'])
+@app.route('/todo/api/v1.0/tasks/', methods=['GET'])
 @auth.login_required
 def get_tasks():
 	return jsonify({'tasks': [make_public_task(task) for task in tasks]})
 
 # POST new list data
-@app.route('/todo/api/v1.0/tasks', methods=['POST'])
+@app.route('/todo/api/v1.0/tasks/', methods=['POST'])
 def create_task():
 	if not request.json or not 'title' in request.json:
 		abort(400)
