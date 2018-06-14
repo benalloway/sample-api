@@ -1,33 +1,54 @@
 #!flask/bin/python
 from flask import Flask, jsonify, abort, make_response, request, url_for, render_template
 from flask_httpauth import HTTPBasicAuth
+import csv
+
 auth = HTTPBasicAuth()
 
 app = Flask(__name__)
 
 # Memory Data
-PRODUCTS = {
-    'iphone': {
+PRODUCTS = [
+    {
         'name': 'iPhone 5S',
         'category': 'Phones',
         'price': 699,
+        'id': 1
     },
-    'galaxy': {
+    {
         'name': 'Samsung Galaxy 5',
         'category': 'Phones',
         'price': 649,
+        'id': 2
     },
-    'ipad-air': {
+    {
         'name': 'iPad Air',
         'category': 'Tablets',
         'price': 649,
+        'id': 3
     },
-    'ipad-mini': {
+    {
         'name': 'iPad Mini',
         'category': 'Tablets',
-        'price': 549
+        'price': 549,
+        'id': 4
     }
-}
+]
+
+# 
+# DB tool
+# 
+
+def dbwrite(args):
+	with open('database/products.csv', 'w') as dbfile:
+		fieldnames = ['name', 'category', 'price', 'id']
+		writer = csv.DictWriter(dbfile, fieldnames=fieldnames)
+
+		writer.writeheader()
+		for product in args:
+			writer.writerow(product)
+
+dbwrite(PRODUCTS)
 
 
 # 
