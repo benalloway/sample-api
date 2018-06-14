@@ -6,27 +6,6 @@ auth = HTTPBasicAuth()
 app = Flask(__name__)
 
 # Memory Data
-# TASKSDATA = {
-# 	{
-# 		'id': 1,
-# 		'title': 'Buy groceries',
-# 		'description': 'Milk, Cheese, Pizza, Fruit, Tyleno',
-# 		'done': False
-# 	},
-# 	{
-# 		'id': 2,
-# 		'title': 'Learn Python',
-# 		'description': 'Need to find a good Python tutorial on the web',
-# 		'done': False
-# 	},
-# 	{
-# 		'id': 3,
-# 		'title': 'Wedding',
-# 		'description': 'wine, food, beer, apps, minister',
-# 		'done': False
-# 	}
-# }
-
 PRODUCTS = {
     'iphone': {
         'name': 'iPhone 5S',
@@ -50,11 +29,19 @@ PRODUCTS = {
     }
 }
 
-# Index.HTML
+
+# 
+# List of Products, home page
+# 
 @app.route('/')
 @app.route('/home/')
 def index():
 	return render_template('index.html', products=PRODUCTS)
+
+
+# 
+# Product Detail Page
+# 
 
 @app.route('/product/<key>')
 def detail(key):
