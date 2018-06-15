@@ -1,5 +1,7 @@
 name,category,price,id
 iPhone 5S,Phones,699,1
-Samsung Galaxy 5,Phones,649,2
 iPad Air,Tablets,649,3
-iPad Mini,Tablets,549,4
+Samsung Galaxy 5,Phones,649,2
+iPhone X,Phones,1199,4
+iPhone 7,Phones,899,5
+iPhone 6,Phones,799,6
