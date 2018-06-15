@@ -95,10 +95,32 @@ def putDB(args=None):
 @app.route('/')
 @app.route('/home/')
 def index():
-	products = getDB()
-	products = sorted(products)
-	return render_template('index.html', products=products)
-
+	products = getDB().values()
+	sortby = request.args.get('sortby')
+	
+	# sort by name a-z
+	if sortby is not None and sortby == 'name':
+		products = sorted(products, key=lambda product: product['name'].lower())
+		return render_template('index.html', products=products)
+	
+	# sort by name z-a
+	if sortby is not None and sortby == '-name':
+		products = sorted(products, key=lambda product: product['name'].lower(), reverse=True)
+		return render_template('index.html', products=products)
+	
+	# sort by id asc
+	if sortby is not None and sortby == 'id':
+		products = sorted(products, key=lambda product: int(product['id']))
+		return render_template('index.html', products=products)
+	
+	# sort by id desc
+	if sortby is not None and sortby == '-id':
+		products = sorted(products, key=lambda product: int(product['id']), reverse=True)
+		return render_template('index.html', products=products)
+	
+	# sort by ID asc
+	else:
+		return render_template('index.html', products=products)
 
 # 
 # Product Detail Page
@@ -110,7 +132,6 @@ def detail(key):
 	if not product:
 		abort(404)
 	return render_template('detail.html', product=product)
-
 
 
 # 
