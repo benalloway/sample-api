@@ -2,9 +2,24 @@
  
 {% block container %}
   <div class="top-pad">
+    <form method="GET" action="/" class="form-inline">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-secondary" type="submit">Sort By</button>
+        </div>
+        <select class="custom-select" id="inputGroupSelect03" name="sortby">
+          <option selected>Choose...</option>
+          <option value="name">Name A-Z</option>
+          <option value="-name">Name Z-A</option>
+          <option value="id">ID Ascending</option>
+          <option value="-id">ID Descending</option>
+        </select>
+      </div>
+    </form>
     {% for product in products %}
       <div class="well">
         <h2>
+          <small>id: {{ product['id'] }}</small>
           <a href="{{ url_for('detail', key=product['id']) }}">{{product['name'] }}</a>
           <small>$ {{ product['price'] }}</small>
         </h2>
