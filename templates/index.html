@@ -8,7 +8,7 @@
           <button class="btn btn-outline-secondary" type="submit">Sort By</button>
         </div>
         <select class="custom-select" id="inputGroupSelect03" name="sortby">
-          <option selected>Choose...</option>
+          <option value="" selected>Choose...</option>
           <option value="name">Name A-Z</option>
           <option value="-name">Name Z-A</option>
           <option value="id">ID Ascending</option>
@@ -18,11 +18,16 @@
     </form>
     {% for product in products %}
       <div class="well">
-        <h2>
-          <small>id: {{ product['id'] }}</small>
-          <a href="{{ url_for('detail', key=product['id']) }}">{{product['name'] }}</a>
-          <small>$ {{ product['price'] }}</small>
-        </h2>
+        <div class="row">
+          <h2 class="col-sm-10">
+            <small>id: {{ product['id'] }}</small>
+            <a href="{{ url_for('detail', key=product['id']) }}">{{product['name'] }}</a>
+            <small>$ {{ product['price'] }}</small>
+          </h2>
+          <form method="POST" action="./" class="col-sm-2 form form-inline">
+            <button type="submit" class="btn btn-outline-danger" name="delete" value="{{ product['id'] }}">DELETE</button>
+          </form>
+        </div>
       </div>
     {% endfor %}
   </div>

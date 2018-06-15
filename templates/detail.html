@@ -2,9 +2,26 @@
  
 {% block container %}
   <div class="top-pad">
-    <h1>{{ product['name'] }}
-      <small>{{ product['category'] }}</small>
-    </h1>
-    <h3>$ {{ product['price'] }}</h3>
+    <div>{{ product }}</div>
+    <form method="POST" action="{{url_for('detail', key=product['id'])}}">
+        <input type="hidden" name="id" value="{{ product['id'] }}">
+    	<div class="form-row">
+    		<div class="col-sm-3">
+    			<label>Name</label>
+    			<input type="text" name="name" value="{{ product['name'] }}">
+    		</div>
+    		<div class="col-sm-3">
+    			<label>Price: $</label>
+    			<input type="text" name="price" value="{{ product['price'] }}">
+    		</div>
+    		<div class="col-sm-3">
+    			<label>Category: </label>
+    			<input type="text" name="category" value="{{ product['category'] }}" readonly>
+    		</div>
+    	</div>
+
+    	<button type="submit" class="btn btn-outline-success" name="update" value="{{ product['id'] }}">UPDATE</button>
+        <button type="submit" class="btn btn-outline-danger" name="delete" value="{{ product['id'] }}">DELETE</button>
+    </form>
   </div>
 {% endblock %}

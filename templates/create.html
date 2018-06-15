@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+ 
+{% block container %}
+  <div class="top-pad">
+    <form method="POST" action="./">
+      <div class="form-group">
+        <h3>Create a new Product</h3>
+      </div>
+      <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" placeholder="Enter Name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select class="form-control" name="category" required>
+            <option value="Phones">Phone</option>
+            <option value="Tablets">Tablet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Price</label>
+          <input type="text" class="form-control" placeholder="Enter Price" name="price" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Product</button>
+
+    </form>
+    {% for x in data %}
+      <div class="well">
+        <h2>
+          <small>{{data}}</small>
+        </h2>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
