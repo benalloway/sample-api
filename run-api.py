@@ -38,17 +38,17 @@ PRODUCTS = {
 # Authentication, add "@auth.login_required" where needed
 # 
 
-from flask_httpauth import HTTPBasicAuth
-auth = HTTPBasicAuth()
+# from flask_httpauth import HTTPBasicAuth
+# auth = HTTPBasicAuth()
 
-@auth.get_password
-def get_password(username):
-	if username == 'root':
-		return 'root'
-	return None
-@auth.error_handler
-def unauthorized():
-	return make_response(jsonify({'error': 'Unauthorized access'}), 401)
+# @auth.get_password
+# def get_password(username):
+# 	if username == 'root':
+# 		return 'root'
+# 	return None
+# @auth.error_handler
+# def unauthorized():
+# 	return make_response(jsonify({'error': 'Unauthorized access'}), 401)
 
 
 # 
@@ -110,7 +110,7 @@ def putDB(args=None):
 
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/products/', methods=['POST', 'GET'])
-@auth.login_required
+# @auth.login_required
 def index():
 	data = request.form.to_dict()
 
@@ -153,7 +153,7 @@ def index():
 # 
 
 @app.route('/products/<key>', methods=['GET', 'POST'])
-@auth.login_required
+# @auth.login_required
 def detail(key):
 	# handle DELETE button
 	if request.method == "POST":
@@ -180,7 +180,7 @@ def detail(key):
 
 
 @app.route('/products/create/', methods=['GET', 'POST'])
-@auth.login_required
+# @auth.login_required
 def create():
 	if request.method == "POST":
 		data = request.form.to_dict()
