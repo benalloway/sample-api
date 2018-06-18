@@ -2,7 +2,6 @@
  
 {% block container %}
   <div class="top-pad">
-    <div>{{ product }}</div>
     <form method="POST" action="{{url_for('detail', key=product['id'])}}">
         <input type="hidden" name="id" value="{{ product['id'] }}">
     	<div class="form-row">

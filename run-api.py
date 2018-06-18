@@ -1,9 +1,6 @@
 #!flask/bin/python
 from flask import Flask, jsonify, abort, make_response, request, url_for, render_template, redirect
-from flask_httpauth import HTTPBasicAuth
 import csv
-
-auth = HTTPBasicAuth()
 
 app = Flask(__name__)
 
@@ -38,9 +35,12 @@ PRODUCTS = {
 
 # 
 # Easy Authentication
+# Authentication, add "@auth.login_required" where needed
 # 
 
-# Authentication, add "@auth.login_required" where needed
+from flask_httpauth import HTTPBasicAuth
+auth = HTTPBasicAuth()
+
 @auth.get_password
 def get_password(username):
 	if username == 'root':
