@@ -1,4 +1,4 @@
-Simple API: for MAXX Learning and Leveling.
+<h1>Simple API: for MAXX Learning and Leveling.</h1>
 
 Built in Python using Flask and CSV, I am building an API that allows CRUD requests on a products database. I am using CSV, and a csv file as the database to learn how to manipulate data as needed. 
 
