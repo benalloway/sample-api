@@ -1,5 +1,5 @@
 #!flask/bin/python
-from flask import Flask, jsonify, abort, make_response, request, url_for, render_template, redirect
+from flask import Flask, jsonify, abort, make_response, request, url_for, render_template, redirect, response
 import csv
 
 app = Flask(__name__)
@@ -35,21 +35,29 @@ PRODUCTS = {
 
 # 
 # Easy Authentication
-# Authentication, add "@auth.login_required" where needed
+# add @requires_auth wherever you want authentication
 # 
 
-# from flask_httpauth import HTTPBasicAuth
-# auth = HTTPBasicAuth()
+from functools import wraps
 
-# @auth.get_password
-# def get_password(username):
-# 	if username == 'root':
-# 		return 'root'
-# 	return None
-# @auth.error_handler
-# def unauthorized():
-# 	return make_response(jsonify({'error': 'Unauthorized access'}), 401)
+def check_auth(username, password):
+	"""This function is called to check if a username / password combo is valid."""
+	return username == 'admin' and password == 'password'
 
+def authenticate():
+	"""Sends a 401 response that enables basic auth"""
+	return Response(
+		'Could not verify your access level for that URL.\n'
+		'You have to login with proper credentials', 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})
+
+def requires_auth(f):
+	@wraps(f)
+	def decorated(*args, **kwargs):
+		auth = request.authorization
+		if not auth or not check_auth(auth.username, auth.password):
+			return authenticate()
+		return f(*args, **kwargs)
+	return decorated
 
 # 
 # DB tools
@@ -111,7 +119,7 @@ def putDB(args=None):
 
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/products/', methods=['POST', 'GET'])
-# @auth.login_required
+@requires_auth
 def index():
 	data = request.form.to_dict()
 
@@ -154,7 +162,7 @@ def index():
 # 
 
 @app.route('/products/<key>', methods=['GET', 'POST'])
-# @auth.login_required
+@requires_auth
 def detail(key):
 	# handle DELETE button
 	if request.method == "POST":
@@ -181,7 +189,7 @@ def detail(key):
 
 
 @app.route('/products/create/', methods=['GET', 'POST'])
-# @auth.login_required
+@requires_auth
 def create():
 	if request.method == "POST":
 		data = request.form.to_dict()
