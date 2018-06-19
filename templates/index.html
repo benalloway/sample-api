@@ -2,8 +2,8 @@
  
 {% block container %}
   <div class="top-pad">
-    <form method="GET" action="/" class="form-inline">
-      <div class="input-group mb-3">
+    <form method="GET" action="/" class="form-inline" id="oderby">
+      <div class="input-group">
         <div class="input-group-prepend">
           <button class="btn btn-outline-secondary" type="submit">Sort By</button>
         </div>
@@ -15,6 +15,17 @@
           <option value="-id">ID Descending</option>
         </select>
       </div>
+      <div class="input-group float-right"><button name="seed" value="db" id="reseed" class="btn btn-outline-danger">Re-Seed DB</button></div>
+      <script type="text/javascript">
+        $( document ).ready(function(){
+          $('#reseed').click(function(e) {
+            if ( ! confirm( "Wipe and Seed Database with generic information.") ) 
+            {
+              e.preventDefault();
+            }
+          });
+        });
+      </script>
     </form>
     {% for product in products %}
       <div class="well">

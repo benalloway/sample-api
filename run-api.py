@@ -4,7 +4,7 @@ import csv
 
 app = Flask(__name__)
 
-# Memory Data Test Data
+# Memory Data for seeding
 PRODUCTS = {
 	'1': {
 	    'name': 'iPhone 5S',
@@ -19,9 +19,9 @@ PRODUCTS = {
 	    'id': 2
 	},
 	'3': {
-	    'name': 'iPad Air',
+	    'name': 'Microsoft Surface Pro',
 	    'category': 'Tablets',
-	    'price': 649,
+	    'price': 849,
 	    'id': 3
 	},
 	'4': {
@@ -29,6 +29,12 @@ PRODUCTS = {
 	    'category': 'Tablets',
 	    'price': 549,
 	    'id': 4
+	},
+	'5': {
+	    'name': 'Google Pixel',
+	    'category': 'Phones',
+	    'price': 499,
+	    'id': 5
 	}	
 }
 
@@ -112,6 +118,8 @@ def putDB(args=None):
 			db[args['id']] = args
 			writeDB(db)
 
+def seedDB():
+	writeDB(PRODUCTS)
 
 # 
 # List of Products, home page
@@ -127,6 +135,10 @@ def index():
 	if request.method == 'POST' and 'delete' in data:
 		id = data['delete']
 		deleteDB(id)
+		return redirect('/')
+
+	if request.args.get('seed'):
+		seedDB()
 		return redirect('/')
 
 	# fill data from CSV file
