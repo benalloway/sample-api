@@ -45,7 +45,7 @@ def check_auth(username, password):
 	return username == 'admin' and password == 'password'
 
 def authenticate():
-	"""Sends a 401 response that enables basic auth"""
+	"""Sends a 401 response that enables basic auth. WWW-Authenticate tells browser to ask for login."""
 	return Response(
 		'Could not verify your access level for that URL.\n'
 		'You have to login with proper credentials', 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})
@@ -200,10 +200,10 @@ def create():
 		return render_template('create.html')
 
 
-# Throw 404, resource not found, if no id exists.
+# Throw 404, resource not found, if route/id/resource doesn't exist.
 @app.errorhandler(404)
 def not_found(error):
-	return make_response(jsonify({'error': 'Not found'}), 404)
+	return make_response(jsonify({'error': 'Resource Not found'}), 404)
 
 
 # End File
