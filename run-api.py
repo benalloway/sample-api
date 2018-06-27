@@ -127,7 +127,7 @@ def seedDB():
 
 @app.route('/', methods=['POST', 'GET'])
 @app.route('/products/', methods=['POST', 'GET'])
-@requires_auth
+# @requires_auth
 def index():
 	data = request.form.to_dict()
 
@@ -174,7 +174,7 @@ def index():
 # 
 
 @app.route('/products/<key>', methods=['GET', 'POST'])
-@requires_auth
+# @requires_auth
 def detail(key):
 	# handle DELETE button
 	if request.method == "POST":
@@ -201,7 +201,7 @@ def detail(key):
 
 
 @app.route('/products/create/', methods=['GET', 'POST'])
-@requires_auth
+# @requires_auth
 def create():
 	if request.method == "POST":
 		data = request.form.to_dict()
